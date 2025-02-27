@@ -1,6 +1,8 @@
 const User = require("../../models/users");
 const {generateAccessToken,generateRefreshToken} = require("../../utils/tokenutils");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
 
 let refreshTokens = [];
 
@@ -9,24 +11,26 @@ const registerController = async(req,res,next) => {
      try {
             const {username,password,email} = req.body;
     
-            const existinguser = await user.findOne({email});
+            const existinguser = await User.findOne({email});
             if(existinguser) return res.status(400).json({error:"User already exist "});
     
             const hashedPass = await bcrypt.hash(password,10);
-            const newUser = new user({username,email,password:hashedPass});
+            const newUser = new User({username,email,password:hashedPass});
             await newUser.save();
     
             res.status(201).json({message:"user registered successfully"});
     
-    
         } catch (error) {
             res.status(500).json(error);
+            console.log(error)
         }
 }
+
+
 //loginController
 const loginController = async(req,res,next) => {
     try {
-        const {email,password} = req.body;
+        const {username,email,password} = req.body;
  
         const user = await User.findOne({email});
         if(!user) return res.status(400).json({error:"invalid credentials"});
@@ -41,6 +45,7 @@ const loginController = async(req,res,next) => {
         res.json({accessToken,refreshToken});
      } catch (error) {
          res.status(500).json({error : "Server Error"});
+         console.log(error);
      }
 }
 
