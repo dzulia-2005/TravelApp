@@ -23,13 +23,14 @@ const createController = async(req,res,next)=>{
          ? files.map((file)=>generatepostwithImg(file.filename))
          : [];
 
-         const newPost = new this.post({
+         const newPost = new postCountry({
             user:userId,
             caption,
-            image:imaageUrl,
+            image:imgurl,
          });
 
          await newPost.save();
+         user.posts.push(newPost._id);
          User.posts.push();
 
          res.status(201).json({message:"post created successfully",post:postCountry});
@@ -43,7 +44,7 @@ const deleteCountryController = async(req,res,next) => {
     const {postId} = req.params;
     
         try {
-            const postToDelete = await post.findById(postId);
+            const postToDelete = await postCountry.findById(postId);
             if(!postToDelete) return next(new CustomError("post not found ", 404));
     
             const User = await user.findById(postToDelete._id);
@@ -70,7 +71,7 @@ const editCountryController = async (req,res,next) => {
     const images = req.files || [];
 
     try {
-        const updateToCountry = await post.findById(postId);
+        const updateToCountry = await postCountry.findById(postId);
         if(!updateToCountry) return res.status(404).json({error:"not found post"});
 
         const updateFields = {};
@@ -91,6 +92,8 @@ const editCountryController = async (req,res,next) => {
         next(error);
     }
 }
+
+
 //likecountryCard
 const likeCountryController = async(req,res,next) => {
     const {postId} = req.params;
@@ -120,7 +123,7 @@ const unlikeController = async(req,res,next) => {
      const {postId} = req.params;
         const{userId} = req.body;
         try {
-            const Post = await post.findById(postId);
+            const Post = await postCountry.findById(postId);
             if(!Post) throw new CustomError("post not found",404);
     
             const User = await user.findById(userId);
@@ -137,7 +140,7 @@ const unlikeController = async(req,res,next) => {
 //getallcountryCardController
 const getAllCountryController = async(req,res,next) => {
     try {
-        const Post = post.find();
+        const Post = await postCountry.find();
 
         if(!Post || Post.length === 0){
             return res.status(200).json({
@@ -146,7 +149,7 @@ const getAllCountryController = async(req,res,next) => {
             })
         }
 
-        res.status(201).json({message:"successfully get all post"});
+        res.status(200).json({message:"successfully get all post"});
     } catch (error) {
         next(error);
     }
@@ -157,7 +160,7 @@ const getOneCardCountry = async(req,res,next) => {
      const {userId} = req.params;
     
         try {
-            const Post = await post.findById(userId);
+            const Post = await postCountry.findById(userId);
             if(!Post) throw new CustomError("post not found",404);
             
             res.status(201).json({message:"successfully get one country's card"});

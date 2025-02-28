@@ -7,6 +7,7 @@ const path = require("path");
 const verifyToken = require("./middlewares/verifyToken");
 const swaggerJSDoc = require("swagger-jsdoc");
 const swaggerUI = require("swagger-ui-express");
+const { title } = require("process");
 
 const app = express();
 
@@ -20,12 +21,15 @@ const swaggerOptions = {
     definition: {
         openapi:"3.0.0",
         info : {
-            titile:'library app',
+            title:"swagger",
             version:'1.0.0',
             description: "API documentation for your project",
         }
     },
-    apis:['./routes/auth/index.js']
+    apis:[
+        './routes/auth/index.js',
+        './routes/countries/index.js'
+    ]
 }
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);

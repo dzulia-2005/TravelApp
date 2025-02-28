@@ -14,6 +14,8 @@ const{
  * @swagger
  * /api/auth/login:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: User authentication
  *     description: Logs the user into the system
  *     requestBody:
@@ -44,6 +46,8 @@ router.post("/login",loginController);
  * @swagger
  * /api/auth/register:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: User authentication
  *     description: Register the user into the system
  *     requestBody:
@@ -78,6 +82,8 @@ router.post("/register",registerController);
  * @swagger
  * /api/auth/logout:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: User Log out
  *     description: Log out user from interface
  *     requestBody:
@@ -99,6 +105,8 @@ router.post("/logout",logOutController);
  * @swagger
  * /api/auth/refresh:
  *   post:
+ *     tags:
+ *       - Authentication
  *     summary: Refresh access token
  *     description: Generate new access token using refresh token
  *     requestBody:
@@ -136,6 +144,8 @@ router.post("/refresh",refreshTokenController);
  * @swagger
  * /api/auth/me:
  *   get:
+ *     tags:
+ *       - Authentication
  *     summary: Get authenticated user info
  *     description: Returns the currently authenticated user
  *     security: 
