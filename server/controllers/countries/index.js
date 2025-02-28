@@ -1,5 +1,5 @@
 const {CustomError} = require("../../middlewares/error");
-const user = require("../../models/users");
+const user = require("../../models/user/users");
 const postCountry = require("../../models/countries");
 
 

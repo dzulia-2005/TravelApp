@@ -4,7 +4,10 @@ const authRoute = require("./routes/auth/index");
 const countryRoute = require("./routes/countries//index");
 const cors = require("cors");
 const path = require("path");
-const verifyToken = require("./middlewares/verifyToken")
+const verifyToken = require("./middlewares/verifyToken");
+const swaggerJSDoc = require("swagger-jsdoc");
+const swaggerUI = require("swagger-ui-express");
+
 const app = express();
 
 app.use(
@@ -12,6 +15,23 @@ app.use(
         origin:"*",
     })
 );
+
+const swaggerOptions = {
+    definition: {
+        openapi:"3.0.0",
+        info : {
+            titile:'library app',
+            version:'1.0.0',
+            description: "API documentation for your project",
+        }
+    },
+    apis:['./routes/auth/index.js']
+}
+
+const swaggerDocs = swaggerJSDoc(swaggerOptions);
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(swaggerDocs));
+
+
 app.use("/uploads",express.static(path.join(__dirname,"uploads")));
 app.use(express.json());
 

@@ -1,4 +1,4 @@
-const User = require("../../models/users");
+const User = require("../../models/user/users");
 const {generateAccessToken,generateRefreshToken} = require("../../utils/tokenutils");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
@@ -51,7 +51,7 @@ const loginController = async(req,res,next) => {
 
 //logOutController
 
-logOutController = async(req,res,next) => {
+const logOutController = async(req,res,next) => {
     const {token} = req.body;
     if(!token) return res.status(400).json({error:"TOken is required"});
 
