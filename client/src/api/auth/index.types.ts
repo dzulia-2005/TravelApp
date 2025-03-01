@@ -14,7 +14,7 @@ export type Registerpayload = {
 }
 export type Refreshpayload = {
     payload:{
-        accessToken:string
+        refreshToken:string
     }
 }
 
