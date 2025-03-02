@@ -28,7 +28,7 @@ export const Refresh = ({payload}:Refreshpayload) => {
 }
 
 export const Me = () => {
-    return httpClient
-        .get<MEresponse>(AUTH_ENDPOINT.ME)
-        .then((res)=>res.data)
+    // return httpClient
+    //     .get<MEresponse>(AUTH_ENDPOINT.ME)
+    //     .then((res)=>res.data)
 }
