@@ -1,58 +1,48 @@
-import Footer from "./components/base/footer"
-import Header from "./components/base/header"
-import { Card } from 'antd';
+import { Route, Routes } from "react-router-dom"
+import DashboardLayout from "./layouts"
+import { lazy, Suspense } from "react"
 
-
-
-const { Meta } = Card;
+const HomeLazy = lazy(()=>import("../src/pages/home/view/index"));
+const LoginLazy = lazy(()=>import("../src/pages/auth//login/index"));
+const RegistartionLazy = lazy(()=>import("../src/pages/auth/register/index"))
 
 const App = () => {
   return (
-   <div className="flex flex-col min-h-screen">
-    <Header/>
-    <div className="flex-1 px-10 py-5">
-      <div className="grid grid-cols-4 gap-4">
-
-        <Card
-            hoverable
-            style={{ width: 240 }}
-            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-          >
-          <Meta title="Europe Street beat" description="www.instagram.com" />
-        </Card>
-
-        <Card
-            hoverable
-            style={{ width: 240 }}
-            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-          >
-          <Meta title="Europe Street beat" description="www.instagram.com" />
-        </Card>
-
-        <Card
-            hoverable
-            style={{ width: 240 }}
-            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-          >
-          <Meta title="Europe Street beat" description="www.instagram.com" />
-        </Card>
-
-        <Card
-            hoverable
-            style={{ width: 240 }}
-            cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-          >
-          <Meta title="Europe Street beat" description="www.instagram.com" />
-        </Card>
-
+    <Routes>
       
+      <Route element={<DashboardLayout/>}>
 
-      </div>
+          <Route
+            path="/"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <HomeLazy/>
+              </Suspense>
+            }
+          />
 
+          <Route
+            path="/login"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <LoginLazy/>
+              </Suspense>
+            }
+          />
 
-    </div>
-    <Footer/>
-   </div>
+          <Route
+            path="/registration"
+            element={
+              <Suspense fallback={<div>Loading...</div>}>
+                <RegistartionLazy/>
+              </Suspense>
+            }
+          />
+          
+
+      </Route>
+
+    </Routes>
   )
 }
 
