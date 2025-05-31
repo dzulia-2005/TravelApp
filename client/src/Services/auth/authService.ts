@@ -11,8 +11,8 @@ type JwtPayload = {
     iat:number;
 }
 
-export const loginService = async ( email : string,password : string ) : Promise<AuthResponse> => {
-    const response = await httpClient.post(AuthEnum.LOGIN,{email,password});
+export const loginService = async ( userName : string,password : string ) : Promise<AuthResponse> => {
+    const response = await httpClient.post(AuthEnum.LOGIN,{userName,password});
     const { token : accessToken , refreshToken } = response.data
 
     const decoded = jwtDecode<JwtPayload>(accessToken);
@@ -31,11 +31,10 @@ export const loginService = async ( email : string,password : string ) : Promise
         refreshToken,
         user
     }
-
 }
 
-export const registerService = async ( email:string, password:string, username:string) : Promise<AuthResponse> => {
-    const response = await httpClient.post(AuthEnum.REGISTER,{email,password,username})
+export const registerService = async ( email:string, password:string, userName:string) : Promise<AuthResponse> => {
+    const response = await httpClient.post(AuthEnum.REGISTER,{email,password,userName})
     const { token : accessToken , refreshToken } = response.data;
 
     const decoded = jwtDecode<JwtPayload>(accessToken);

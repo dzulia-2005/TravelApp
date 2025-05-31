@@ -7,20 +7,10 @@ export type AuthState = {
     errorMessage : string | null;
 }
 
-export type User = {
-    id : string;
-    email : string;
-    name : string;
-}
-
 export type AuthResponse = {
     accessToken : string;
     refreshToken : string;
     user : MeResponse | null;
-}
-
-export type RefreshResponse = {
-    refreshToken : string;
 }
 
 export type MeResponse = {

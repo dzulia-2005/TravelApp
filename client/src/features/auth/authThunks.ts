@@ -8,22 +8,22 @@ import {
 } from "../../Services/auth/authService.ts";
 import {AuthResponse, MeResponse} from "./authTypes.ts";
 
-export const login = createAsyncThunk<AuthResponse,{email:string,password:string}>(
+export const login = createAsyncThunk<AuthResponse,{userName:string,password:string}>(
     "auth/login",
-    async ({email,password},thunkAPI) => {
+    async ({userName,password},thunkAPI) => {
         try {
-            return await loginService(email,password)
+            return await loginService(userName,password)
         }catch (error:any){
             return thunkAPI.rejectWithValue(error.response?.data.message || "Login Failed")
         }
     }
 )
 
-export const register = createAsyncThunk<AuthResponse,{email:string,username:string,password:string}>(
+export const register = createAsyncThunk<AuthResponse,{email:string,userName:string,password:string}>(
     "auth/register",
-    async ({ email, username, password },thunkAPI) => {
+    async ({ email, userName, password },thunkAPI) => {
         try {
-            return await registerService(email,password,username)
+            return await registerService(email,password,userName)
         }catch (error:any) {
             return thunkAPI.rejectWithValue(error.response?.data.message || "regiter Failed")
         }
