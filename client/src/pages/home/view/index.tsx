@@ -9,9 +9,6 @@ const Home = () => {
   const pageSize = 8;
   const[currentPage,setCurrentPage]= useState(1);
 
-  // const startIndex = (currentPage-1) * currentPage;
-  // const displayData = data.slice(startIndex,startIndex + pageSize);
-
   return (
     <>
              <div className="grid grid-cols-4 gap-4">

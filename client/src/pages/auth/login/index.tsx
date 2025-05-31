@@ -1,52 +1,14 @@
 import React from 'react'
 import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
 import { Input , Space,  Button} from 'antd';
-import { Loginpayload } from '../../../api/auth/index.types';
-import { useNavigate } from 'react-router-dom';
-import {LoginSchema} from "./schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useLogin } from '../../../react-query/mutation/auth';
-import { SigninSuccess } from './utils';
-import { queryClient } from '../../../main';
 import { Controller, useForm } from "react-hook-form";
 
 
-type loginFormValues = Loginpayload["payload"];
 
-const LoginFormDefaultValues:loginFormValues = {
-  email:"",
-  password:""
-}
 
 const Login:React.FC = () => {
-  const navigate = useNavigate();
 
-  const {
-    control,
-    handleSubmit,
-    formState:{errors}
-  }=useForm<loginFormValues>({
-    defaultValues:LoginFormDefaultValues,
-    resolver:zodResolver(LoginSchema)
-  })
-
-  const {mutate:handleLogin} = useLogin();
-
-  const onSubmit = (Loginpayload:loginFormValues) => {
-      handleLogin({payload:Loginpayload},{
-          onSuccess:(res)=>{
-            SigninSuccess({
-              accessToken:res.accessToken,
-              refreshToken:res.refreshToken,
-            })
-            navigate("/")
-            queryClient.invalidateQueries({queryKey:["me"]});
-          },
-          onError:()=>{
-            alert("login Failed")
-          }
-      })
-  }
+  const {control} = useForm();
 
   return (
     <div className='flex justify-center'>
@@ -68,9 +30,7 @@ const Login:React.FC = () => {
                               />
                           }}
                         />
-                        {errors.email && (
-                           <p className="text-red-600">{errors.email.message}</p>
-                        )}
+
                        <Controller
                           control={control}
                           name="password"
@@ -83,15 +43,13 @@ const Login:React.FC = () => {
                                       />
                           }}  
                         />
-                        {errors.password && (
-                           <p className="text-red-600">{errors.password.message}</p>
-                        )}
+
                         <Button 
                           className='mt-5' 
                           type="primary" 
                           size="large" 
                           icon={<AntDesignOutlined />}
-                          onClick={handleSubmit(onSubmit)}
+
                         >
                             Log In
                         </Button>

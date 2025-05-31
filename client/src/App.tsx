@@ -3,7 +3,7 @@ import DashboardLayout from "./layouts"
 import { lazy, Suspense } from "react"
 
 const HomeLazy = lazy(()=>import("../src/pages/home/view/index"));
-const LoginLazy = lazy(()=>import("../src/pages/auth//login/index"));
+const LoginLazy = lazy(()=>import("../src/pages/auth/login/index"));
 const RegistartionLazy = lazy(()=>import("../src/pages/auth/register/index"))
 
 const App = () => {
