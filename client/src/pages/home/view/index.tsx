@@ -9,6 +9,7 @@ const Home = () => {
   const pageSize = 8;
   const[currentPage,setCurrentPage]= useState(1);
 
+
   return (
     <>
              <div className="grid grid-cols-4 gap-4">
@@ -22,13 +23,13 @@ const Home = () => {
             </div>
 
             <div className="flex justify-center py-5">
-                <Pagination 
-                  align="center" 
+                <Pagination
+                  align="center"
                   current={currentPage}
-                  total={50} 
+                  total={50}
                   pageSize={pageSize}
                   onChange={(page)=>setCurrentPage(page)}
-                  /> 
+                  />
             </div>
     </>
   )
