@@ -1,5 +1,5 @@
 import React from 'react'
-import { AntDesignOutlined, UserOutlined } from '@ant-design/icons';
+import { UserOutlined } from '@ant-design/icons';
 import { Input , Space,  Button} from 'antd';
 import {useAppDispatch, useAppSelector} from "../../../utils/reduxHooks.ts";
 import {Controller, useForm} from "react-hook-form";
@@ -32,7 +32,8 @@ const Register:React.FC = () => {
     const onSubmit = async (data:registerFormInput) => {
         const result = await dispatch(register({email:data.email , password:data.password , userName:data.userName}))
         if(register.fulfilled.match(result)){
-            navigate("/")
+            navigate("/login")
+            alert("ახლა დალოგინდი")
         }
         if(register.rejected.match(result)){
             alert("register rejected")
@@ -49,7 +50,7 @@ const Register:React.FC = () => {
                     <Space direction="vertical">
                         <Controller
                             control={control}
-                            render={(field)=>(
+                            render={({field})=>(
                                 <Input
                                     {...field}
                                     className='mb-2'
@@ -79,7 +80,7 @@ const Register:React.FC = () => {
                             name="email"
                         />
 
-                        { errors.userName && (
+                        { errors.email && (
                             <p className="text-[#eb4949] mb-2">გთხოვთ შეიყვანოთ mail</p>
                         )}
 
@@ -104,7 +105,7 @@ const Register:React.FC = () => {
                             className='mt-5'
                             type="primary"
                             size="large"
-                            icon={<AntDesignOutlined />}
+                            htmlType="submit"
                             loading={isLoading}
                         >
                             Register

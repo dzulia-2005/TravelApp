@@ -1,7 +1,7 @@
 export enum AuthEnum {
-    LOGIN = '/api/account/login',
-    REGISTER = '/api/account/register',
-    LOGOUT = '/api/account/logout',
-    ME = '/api/account/me',
-    REFRESH = '/api/account/refresh-token'
+    LOGIN = '/account/login',
+    REGISTER = '/account/register',
+    LOGOUT = '/account/logout',
+    ME = '/account/me',
+    REFRESH = '/account/refresh-token'
 }
