@@ -1,3 +1,4 @@
+
 export type CardResponse = {
     id : number;
     title : string;
@@ -15,10 +16,12 @@ export type CardResponse = {
     }>;
 }
 
-export type CardState = {
-    cards: CardResponse[];
-    selectedCard: CardResponse | null;
-    isLoading:boolean;
-    isError:boolean;
-    errorMessage:string;
+export type createCardPayload = {
+    title : string;
+    company : string;
+    purchase : string;
+    lastDividend: number;
+    industry : string;
+    marketCap: number;
+    imageUrl: string;
 }

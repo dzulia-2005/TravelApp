@@ -5,5 +5,4 @@ export enum CardEndpoints  {
     GetCardById="/stock/:id",
     EditCard="/stock/edit/:id",
     DeleteCard="/stock/delete/:id",
-
 }

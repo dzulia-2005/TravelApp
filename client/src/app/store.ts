@@ -1,14 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../features/auth//authSlices';
-import cardReducer from '../features/card/cardSlices';
-import commentReducer from '../features/comments/commentSlices'
+import {cardApi} from "../features/card/cardApi.ts";
+import {authApi} from "../features/auth/authApi.ts";
+import {commentApi} from "../features/comment/commentApi.ts";
+
 
 export const store = configureStore({
     reducer:{
-        auth : authReducer,
-        cards : cardReducer,
-        comments : commentReducer
-    }
+        [cardApi.reducerPath] : cardApi.reducer,
+        [authApi.reducerPath] : authApi.reducer,
+        [commentApi.reducerPath] : commentApi.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware()
+            .concat(cardApi.middleware)
+            .concat(authApi.middleware)
+            .concat(commentApi.middleware)
 });
 
 export type RootState = ReturnType<typeof store.getState>;

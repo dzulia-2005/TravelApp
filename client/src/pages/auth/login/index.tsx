@@ -3,10 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Input, Space } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { Controller, useForm } from 'react-hook-form';
-import {login} from "../../../features/auth/authThunks.ts";
-import {useAppDispatch, useAppSelector} from "../../../utils/reduxHooks.ts";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {LoginSchema} from "./schema.ts";
+import {useLoginMutation} from "../../../features/auth/authApi.ts"
 
 type LoginFormInputs = {
     userName: string;
@@ -14,7 +13,6 @@ type LoginFormInputs = {
 }
 
 const Login: React.FC = () => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const { control, handleSubmit ,formState:{errors} } = useForm<LoginFormInputs>({
@@ -25,16 +23,16 @@ const Login: React.FC = () => {
         resolver:zodResolver(LoginSchema)
     });
 
-    const { isLoading, isError, errorMessage, } = useAppSelector(state => state.auth);
+    const [login,{isLoading}] = useLoginMutation();
 
     const onSubmit = async (data: LoginFormInputs) => {
-        const result = await dispatch(login({ userName: data.userName, password: data.password }));
-        if (login.fulfilled.match(result)) {
-            navigate("/");
-        }
-        if(login.rejected.match(result)){
-            alert("login failed")
-        }
+        try {
+            await login({ userName: data.userName, password: data.password }).unwrap();
+            alert("login successfully")
+            navigate("/")
+        }catch (err) {
+            console.error('შეცდომა ლოგინზე:', err);
+        }       
     }
 
     return (
@@ -88,7 +86,7 @@ const Login: React.FC = () => {
                             </Button>
                         </div>
 
-                        {isError && <p className="text-red-500 text-center">{errorMessage}</p>}
+
                     </Space>
                 </form>
             </div>

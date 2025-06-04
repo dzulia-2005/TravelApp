@@ -11,11 +11,3 @@ export type CreateCommentPayload = {
     title: string;
     content: string;
 }
-
-export type CommentState = {
-    comments: CommentResponse[];
-    selectedComment: CommentResponse[] | null;
-    isLoading:boolean;
-    isError:boolean;
-    errorMessage:string;
-}

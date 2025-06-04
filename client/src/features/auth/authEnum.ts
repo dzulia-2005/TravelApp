@@ -1,4 +1,4 @@
-export enum AuthEnum {
+export enum AuthEndpoint {
     LOGIN = '/account/login',
     REGISTER = '/account/register',
     LOGOUT = '/account/logout',

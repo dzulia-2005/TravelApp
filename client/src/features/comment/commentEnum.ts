@@ -4,5 +4,4 @@ export enum CommentEndpoints {
     DELETECOMMENT = '/comment/delete/:id',
     CREATECOMMENT = '/comment/:stockId',
     EDITCOMMENT = '/comment/edit/:id'
-
 }

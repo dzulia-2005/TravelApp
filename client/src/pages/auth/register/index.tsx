@@ -1,12 +1,11 @@
 import React from 'react'
 import { UserOutlined } from '@ant-design/icons';
 import { Input , Space,  Button} from 'antd';
-import {useAppDispatch, useAppSelector} from "../../../utils/reduxHooks.ts";
 import {Controller, useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {zodResolver} from "@hookform/resolvers/zod";
 import {RegisterSchema} from "./shcema.ts";
-import {register} from "../../../features/auth/authThunks.ts";
+import {useRegisterMutation} from "../../../features/auth/authApi.ts";
 
 type registerFormInput = {
     userName:string;
@@ -16,7 +15,6 @@ type registerFormInput = {
 
 
 const Register:React.FC = () => {
-    const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     const { control, handleSubmit , formState:{errors} } = useForm<registerFormInput>({
@@ -28,15 +26,16 @@ const Register:React.FC = () => {
         resolver:zodResolver(RegisterSchema)
     });
 
-    const {isLoading,isError,errorMessage} = useAppSelector(state => state.auth);
+
+    const [register,{isLoading}] = useRegisterMutation();
+
     const onSubmit = async (data:registerFormInput) => {
-        const result = await dispatch(register({email:data.email , password:data.password , userName:data.userName}))
-        if(register.fulfilled.match(result)){
+        try {
+            const result = await register({email:data.email , password:data.password , userName:data.userName}).unwrap();
+            localStorage.setItem("accessToken",result.accessToken);
             navigate("/login")
-            alert("ახლა დალოგინდი")
-        }
-        if(register.rejected.match(result)){
-            alert("register rejected")
+        }catch (err) {
+            console.error("register failed",err)
         }
     }
 
@@ -110,8 +109,6 @@ const Register:React.FC = () => {
                         >
                             Register
                         </Button>
-
-                        {isError && <p className="text-red-500 text-center">{errorMessage}</p>}
 
                     </Space>
                 </form>
