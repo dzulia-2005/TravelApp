@@ -32,7 +32,7 @@ const Register:React.FC = () => {
     const onSubmit = async (data:registerFormInput) => {
         try {
             const result = await register({email:data.email , password:data.password , userName:data.userName}).unwrap();
-            localStorage.setItem("accessToken",result.accessToken);
+            localStorage.setItem("token",result.token);
             navigate("/login")
         }catch (err) {
             console.error("register failed",err)

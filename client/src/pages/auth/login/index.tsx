@@ -48,7 +48,7 @@ const Login: React.FC = () => {
                                 <Input
                                     {...field}
                                     size='large'
-                                    placeholder="Email"
+                                    placeholder="userName"
                                     prefix={<UserOutlined />}
                                 />
                             )}

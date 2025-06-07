@@ -1,11 +1,11 @@
 import {createApi} from "@reduxjs/toolkit/query/react";
-import { customBaseQuery} from "../baseQuery.ts";
+import {baseQuery} from "../baseQuery.ts";
 import {getAllCards, getCardById, getMyCard} from "../../react-query/query/card";
 import {createCard, deleteCard, editCard} from "../../react-query/mutation/card";
 
 export const cardApi = createApi({
     reducerPath : 'cardApi',
-    baseQuery : customBaseQuery,
+    baseQuery : baseQuery,
     tagTypes : ['Card'],
     endpoints : (builder) => ({
         getAllCards : getAllCards(builder),
@@ -17,3 +17,12 @@ export const cardApi = createApi({
         deleteCard : deleteCard(builder)
     })
 })
+
+export const {
+    useDeleteCardMutation,
+    useCreateCardMutation,
+    useEditCardMutation,
+    useGetAllCardsQuery,
+    useGetCardByIdQuery,
+    useGetMyCardQuery,
+} = cardApi

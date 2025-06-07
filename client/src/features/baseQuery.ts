@@ -6,7 +6,7 @@ import {SignInSuccess} from "../pages/auth/login/utils";
 export const baseQuery = fetchBaseQuery({
     baseUrl: import.meta.env.VITE_BASE_URL,
     prepareHeaders: (headers) => {
-        const token = localStorage.getItem("accessToken");
+        const token = localStorage.getItem("token");
         if (token) {
             headers.set("Authorization", `Bearer ${token}`);
         }

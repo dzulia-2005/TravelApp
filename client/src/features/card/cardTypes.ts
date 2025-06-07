@@ -3,7 +3,7 @@ export type CardResponse = {
     id : number;
     title : string;
     company : string;
-    purchase: string;
+    purchase: number;
     lastDividend: number;
     industry : string;
     marketCap: number;
@@ -19,7 +19,7 @@ export type CardResponse = {
 export type createCardPayload = {
     title : string;
     company : string;
-    purchase : string;
+    purchase : number;
     lastDividend: number;
     industry : string;
     marketCap: number;
