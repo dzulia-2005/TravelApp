@@ -14,7 +14,7 @@ export const createCard = (builder:EndpointBuilder<any, any, any>) => {
 }
 
 export const editCard = (builder:EndpointBuilder<any, any, any>) => {
-    return builder.mutation<CardResponse,{id:string,payload:createCardPayload}>({
+    return builder.mutation<CardResponse,{id:string,payload:FormData}>({
         query:({id, payload}) => ({
             url:CardEndpoints.EditCard.replace(":id",id),
             method:'PUT',

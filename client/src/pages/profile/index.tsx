@@ -3,11 +3,13 @@ import {useDeleteCardMutation, useGetMyCardQuery} from "../../features/card/card
 import {useSelector} from "react-redux";
 import {RootState} from "../../app/store.ts";
 import { Button, } from 'antd';
+import {useNavigate} from "react-router-dom";
 
 const ProfilePage = () => {
     const {data} = useGetMyCardQuery();
     const user = useSelector((state:RootState)=>state.auth.user);
     const [deleteCard] = useDeleteCardMutation();
+    const navigate = useNavigate();
 
     const handleDelete = async(id:number|string) => {
         try {
@@ -16,6 +18,8 @@ const ProfilePage = () => {
             console.error("delete failed",e)
         }
     }
+
+
 
     return (
         <>
@@ -37,7 +41,7 @@ const ProfilePage = () => {
                                     <Button type="primary" danger onClick={()=>handleDelete(card.id)}>
                                         delete
                                     </Button>
-                                    <Button type="primary">
+                                    <Button type="primary" onClick={()=>navigate(`/edit-card/${card.id}`)}>
                                         edit
                                     </Button>
                                 </div>

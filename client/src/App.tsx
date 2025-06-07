@@ -9,7 +9,8 @@ const HomeLazy = lazy(()=>import("../src/pages/home/view/index"));
 const LoginLazy = lazy(()=>import("../src/pages/auth/login/index"));
 const RegistartionLazy = lazy(()=>import("../src/pages/auth/register/index"));
 const CreateCardPage = lazy(()=>import("../src/pages/CreateCard/index"));
-const ProfilePage = lazy(()=>import("../src/pages/profile/index.tsx"))
+const ProfilePage = lazy(()=>import("../src/pages/profile/index.tsx"));
+const EditCard = lazy(()=>import("../src/pages/EditCard/index.tsx"));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -72,6 +73,14 @@ const App = () => {
                 <ProfilePage/>
               </Suspense>
             }
+          />
+
+          <Route
+              path="/edit-card/:id"
+              element={
+                  <Suspense>
+                      <EditCard/>
+                  </Suspense>}
           />
           
 
