@@ -7,6 +7,8 @@ import {zodResolver} from "@hookform/resolvers/zod";
 import {LoginSchema} from "./schema.ts";
 import {useLoginMutation} from "../../../features/auth/authApi.ts"
 
+
+
 type LoginFormInputs = {
     userName: string;
     password: string;
@@ -28,12 +30,15 @@ const Login: React.FC = () => {
     const onSubmit = async (data: LoginFormInputs) => {
         try {
             await login({ userName: data.userName, password: data.password }).unwrap();
-            alert("login successfully")
-            navigate("/")
+            const token = localStorage.getItem('token');
+            if (token) {
+                navigate("/");
+            }
         }catch (err) {
             console.error('შეცდომა ლოგინზე:', err);
         }       
     }
+
 
     return (
         <div className='flex justify-center'>

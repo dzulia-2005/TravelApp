@@ -1,18 +1,25 @@
 import React from 'react'
 import Logo from "../../assets/images/header/travelLogo.jpg"
 import {NavLink, useNavigate} from "react-router-dom";
-import {useSelector} from "react-redux";
-import {RootState} from "../../app/store.ts";
+import {useDispatch} from "react-redux";
+import {useLogoutMutation} from "../../features/auth/authApi.ts";
+import {clearUser} from "../../features/auth/authSlices.ts";
 
 const Header:React.FC = () => {
     const navigate = useNavigate();
-    const user = useSelector((state:RootState)=>state.auth.user)
+    const token = localStorage.getItem("token");
+    const dispatch = useDispatch();
+    const [logout] = useLogoutMutation();
+
 
     const handleLogOut = async() => {
+        await logout().unwrap();
         localStorage.removeItem("token");
         localStorage.removeItem("refreshToken");
+        dispatch(clearUser());
         navigate("/login")
     }
+
 
   return (
     <header className="px-10">
@@ -23,7 +30,7 @@ const Header:React.FC = () => {
               </ul>
           </NavLink>
           {
-                  user ?
+              token ?
                   <ul className="flex items-center w-[30%] gap-[10%]">
                       <NavLink to={"/weather-page"}>
                           <li>Weather</li>

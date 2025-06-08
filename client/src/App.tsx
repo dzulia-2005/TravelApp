@@ -4,6 +4,8 @@ import {lazy, Suspense, useEffect} from "react"
 import {useDispatch} from "react-redux";
 import {useMeQuery} from "./features/auth/authApi.ts";
 import {clearUser, setUser} from "./features/auth/authSlices.ts";
+import AuthLayout from "./layouts/authLayout.tsx";
+import AuthGuard from "./guard/authGuard.tsx";
 
 const HomeLazy = lazy(()=>import("../src/pages/home/view/index"));
 const LoginLazy = lazy(()=>import("../src/pages/auth/login/index"));
@@ -29,7 +31,7 @@ const App = () => {
   return (
     <Routes>
       
-      <Route element={<DashboardLayout/>}>
+        <Route element={<AuthGuard><DashboardLayout/></AuthGuard>}>
 
           <Route
             path="/"
@@ -40,23 +42,6 @@ const App = () => {
             }
           />
 
-          <Route
-            path="/login"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <LoginLazy/>
-              </Suspense>
-            }
-          />
-
-          <Route
-            path="/registration"
-            element={
-              <Suspense fallback={<div>Loading...</div>}>
-                <RegistartionLazy/>
-              </Suspense>
-            }
-          />
 
           <Route
             path="/create-Card"
@@ -96,6 +81,25 @@ const App = () => {
 
       </Route>
 
+        <Route element={<AuthLayout/>}>
+              <Route
+                  path="/login"
+                  element={
+                      <Suspense fallback={<div>Loading...</div>}>
+                          <LoginLazy/>
+                      </Suspense>
+                  }
+              />
+
+              <Route
+                  path="/registration"
+                  element={
+                      <Suspense fallback={<div>Loading...</div>}>
+                          <RegistartionLazy/>
+                      </Suspense>
+                  }
+              />
+          </Route>
     </Routes>
   )
 }
