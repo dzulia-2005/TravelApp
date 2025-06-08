@@ -25,7 +25,9 @@ const Header:React.FC = () => {
           {
                   user ?
                   <ul className="flex items-center w-[30%] gap-[10%]">
-                      <li>Weather</li>
+                      <NavLink to={"/weather-page"}>
+                          <li>Weather</li>
+                      </NavLink>
                       <NavLink to={"/create-Card"}>
                           <li>Create</li>
                       </NavLink>

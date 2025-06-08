@@ -11,6 +11,7 @@ const RegistartionLazy = lazy(()=>import("../src/pages/auth/register/index"));
 const CreateCardPage = lazy(()=>import("../src/pages/CreateCard/index"));
 const ProfilePage = lazy(()=>import("../src/pages/profile/index.tsx"));
 const EditCard = lazy(()=>import("../src/pages/EditCard/index.tsx"));
+const WeatherPage = lazy(()=>import("../src/pages/weather/index"));
 
 const App = () => {
     const dispatch = useDispatch();
@@ -78,9 +79,18 @@ const App = () => {
           <Route
               path="/edit-card/:id"
               element={
-                  <Suspense>
+                  <Suspense fallback={<div>Loading...</div>}>
                       <EditCard/>
                   </Suspense>}
+          />
+
+          <Route
+                path="/weather-page"
+                element={
+                    <Suspense fallback={<div>Loading...</div>}>
+                        <WeatherPage/>
+                    </Suspense>
+                }
           />
           
 

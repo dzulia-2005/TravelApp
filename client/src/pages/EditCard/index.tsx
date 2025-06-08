@@ -10,7 +10,7 @@ const { TextArea } = Input;
 
 export const EditCard:React.FC = () => {
     const { id } = useParams<{id?:string}>()
-    const { control, handleSubmit } = useForm<createCardPayload>({
+    const { control, handleSubmit , formState:{errors} } = useForm<createCardPayload>({
         defaultValues: {
             title: '',
             company: '',
@@ -22,7 +22,7 @@ export const EditCard:React.FC = () => {
         }
     });
 
-    
+
     const [editCard] = useEditCardMutation();
 
     const onSubmit = async (data: createCardPayload) => {
@@ -65,6 +65,9 @@ export const EditCard:React.FC = () => {
                         control={control}
                         render={({field}) => <TextArea {...field} placeholder="Title" autoSize/>}
                     />
+                    {errors.title && (
+                        <div>შეიყვანეთ მხოლოდ სტრინგი</div>
+                    )}
 
                     <label>Company</label>
                     <Controller
@@ -72,6 +75,9 @@ export const EditCard:React.FC = () => {
                         control={control}
                         render={({field}) => <TextArea {...field} placeholder="Company" autoSize/>}
                     />
+                    {errors.company && (
+                        <div>შეიყვანეთ მხოლოდ სტრინგი</div>
+                    )}
 
                     <label>Purchase</label>
                     <Controller
@@ -81,12 +87,19 @@ export const EditCard:React.FC = () => {
                             {...field} placeholder="Purchase" autoSize/>}
                     />
 
+                    {errors.company && (
+                        <div>შეიყვანეთ მხოლოდ ციფრი</div>
+                    )}
+
                     <label>Last Dividend</label>
                     <Controller
                         name="lastDividend"
                         control={control}
                         render={({field}) => <TextArea {...field} placeholder="Last Dividend" autoSize/>}
                     />
+                    {errors.lastDividend && (
+                        <div>შეიყვანეთ მხოლოდ სტრინგი</div>
+                    )}
 
                     <label>Industry</label>
                     <Controller
@@ -94,6 +107,9 @@ export const EditCard:React.FC = () => {
                         control={control}
                         render={({field}) => <TextArea {...field} placeholder="Industry" autoSize/>}
                     />
+                    {errors.industry && (
+                        <div>შეიყვანეთ მხოლოდ სტრინგი</div>
+                    )}
 
                     <label>Market Cap</label>
                     <Controller
@@ -101,6 +117,9 @@ export const EditCard:React.FC = () => {
                         control={control}
                         render={({field}) => <TextArea {...field} placeholder="Market Cap" autoSize/>}
                     />
+                    {errors.marketCap && (
+                        <div>შეიყვანეთ მხოლოდ სტრინგი </div>
+                    )}
 
                     <label>Image Upload</label>
                     <div>
@@ -121,6 +140,9 @@ export const EditCard:React.FC = () => {
                                 </Upload>
                             )}
                         />
+                        {errors.imageUrl && (
+                            <div>შეიყვანეთ მხოლოდ სტრინგი</div>
+                        )}
 
                     </div>
 
